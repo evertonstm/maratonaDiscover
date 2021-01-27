@@ -7,27 +7,35 @@
   <title>dev.finance$</title>
 </head>
 
-<body> 
+<body>
   <header>
-    <h1>dev.finance$</h1>
+    <h1 id="logo">dev.finance$</h1>
   </header>
 
   <main>
-    <section>
+    <section id="balansce">
       <h2>Balanço</h2>
-      <h3>Entradas</h3>
-      <p>R$ 5.000,00</p>
 
-      <h3>Saídas</h3>
-      <p>R$ 3.000,00</p>
+      <div class="card">
+        <h3>Entradas</h3>
+        <p>R$ 5.000,00</p>
+      </div>
 
-      <h3>Total</h3>
-      <p>R$ 8.000,00</p>
-      
+      <div class="card">
+        <h3>Saídas</h3>
+        <p>R$ 3.000,00</p>
+      </div>
+
+      <div class="card">
+        <h3>Total</h3>
+        <p>R$ 8.000,00</p>
+      </div>
+
+
     </section>
-    <section>
+    <section id="transaction">
       <h2>Transações</h2>
-      <table>
+      <table id="data-table">
         <thead>
           <tr>
             <th>Descrição</th>
@@ -35,7 +43,7 @@
             <th>Data</th>
           </tr>
         </thead>
-  
+
         <tbody>
           <tr>
             <td>Luz</td>
@@ -51,12 +59,12 @@
             <td>internet</td>
             <td>-R$200,00</td>
             <td>23/01/2021</td>
-           </tr>
+          </tr>
         </tbody>
       </table>
 
     </section>
- 
+
   </main>
   <footer>
     <p>Dev.Finance$</p>
