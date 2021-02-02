@@ -1,7 +1,5 @@
 const Modal = {
   open(){
-      // Abrir modal
-      // Adicionar a class active ao modal
       document
           .querySelector('.modal-overlay')
           .classList
@@ -9,8 +7,6 @@ const Modal = {
 
   },
   close(){
-      // fechar o modal
-      // remover a class active do modal
       document
           .querySelector('.modal-overlay')
           .classList
@@ -18,33 +14,43 @@ const Modal = {
   }
 }
 
-const transactions = [
+const Transaction = {
+  all: [
     {
-      id:1,
       description:'luz',
       amount: -50000,
       date: '23/01/2021',
     },
   
     {
-      id:2,
       description:'Website',
       amount: 500001,
       date: '23/01/2021',
     },
   
     {
-      id:3,
       description:'Internet',
       amount: -2000012,
       date: '23/01/2021',
     },
-  ]
+  ],
 
-const Transaction = {
-  incomes() {
+  add (transaction) {
+    Transaction.all.push(transaction)
+
+    App.reload()
+  },
+
+  remove (index) {
+    Transaction.all.splice(index, 1)
+
+    App.reload()
+
+  },
+
+  incomes () {
     let income = 0;
-     transactions.forEach(transaction => {
+     Transaction.all.forEach(transaction => {
       if(transaction.amount > 0 ) {
         income += transaction.amount;
       }
@@ -53,9 +59,9 @@ const Transaction = {
       return income;
   },
   
-  expenses() {
+  expenses () {
     let expense = 0;
-    transactions.forEach(transaction => {
+    Transaction.all.forEach(transaction => {
      if(transaction.amount < 0 ) {
       expense += transaction.amount;
      }
@@ -65,12 +71,11 @@ const Transaction = {
       return expense;
   },
 
-  total() {
+  total () {
     return Transaction.incomes() + Transaction.expenses();
 
   }
 }
-
 
 const DOM = {
   transactionsContainer: document.querySelector('#data-table tbody'),
@@ -112,8 +117,12 @@ const DOM = {
     document
       .getElementById('totalDisplay')
       .innerHTML = Utils.formatCurrency(Transaction.total())
-  }
+  },
 
+  clearTransactions(){
+    DOM.transactionsContainer.innerHTML = ''
+  }
+    
 
 }
 
@@ -135,8 +144,51 @@ const Utils = {
 
 }
 
-transactions.forEach(function(transaction) {
-  DOM.addTransaction(transaction)
-})
+const Form = {
+  description: document.querySelector('input#description'),
+  amount: document.querySelector('input#amount'),
+  date: document.querySelector('input#date'),
 
-DOM.updateBalance()
+  getValues(){
+    return {
+      description: Form.description.value,
+      amount: Form.amount.value,
+      date: Form.date.value
+    }
+  },
+
+  formatData() {
+    console.log('Formatar os dados')
+  },
+  validateFields() {
+    const {description,amount,date} = Form.getValues()
+    console.log(Form.getValues())
+  },
+  submit(event) {
+    event.preventDefault()
+
+    Form.validateFields()
+
+    Form.formatData()
+  }
+}
+
+const App = {
+  init() {
+
+    Transaction.all.forEach(transaction => {
+      DOM.addTransaction(transaction)
+    })
+    
+    DOM.updateBalance()
+    
+  },
+
+  reload() {
+    DOM.clearTransactions()
+    App.init()
+  },
+}
+
+App.init()
+
